@@ -15,6 +15,13 @@
 @section('content')
 <div class="row">
     <div class="col-xs-12">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item" aria-current="page"><a href="{{url('home')}}">Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{$people->name}}</li>
+          </ol>
+        </nav>
+
         <div class="card">
             <div class="header">
                 <div class="col-xs-6">
@@ -44,17 +51,26 @@
                         <h3>Notas</h3>
                     </div>
                 </div>
-                    <div class="col-xs-12">
-                        <form action="{{route('note.create')}}" method="POST" class="form-horizontal">
-                            @csrf
-                            <div class="col-xs-12 col-md-6 col-md-offset-3">
-                                <div class="form-group">
-                                    <label for="">Titulo</label>
-                                    <input type="text" class="form-control" name="title">
-                                </div>
+                <div class="row">
+                    <form action="{{route('note.create')}}" method="POST" class="form-inline">
+                        @csrf
+                        <div class="col-xs-12 col-md-4">
+                            <div class="form-group">
+                                <label for="">Titulo</label>
+                                <input type="text" class="form-control" name="title">
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                        <div class="col-xs-12 col-md-4">
+                            <div class="form-group">
+                                <label for="">Contenido</label>
+                                <input type="text" class="form-control" name="description">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-4">
+                            <button class="btn btn-info">Enviar</button>
+                        </div>
+                    </form>
+                </div>
                 <div class="row">
                     <div class="col-xs-12">
                         @foreach($people->notes as $note)
