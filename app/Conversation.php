@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Note extends Model
+class Conversation extends Model
 {
     public function people()
     {
