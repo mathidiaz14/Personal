@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\People;
 
 class PeopleController extends Controller
 {
@@ -33,7 +34,7 @@ class PeopleController extends Controller
      */
     public function create()
     {
-        //
+        return view('people.create');
     }
 
     /**
@@ -44,7 +45,17 @@ class PeopleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $people                 = new People();
+        $people->name           = $request->name;
+        $people->description    = $request->description;
+        $people->phone          = $request->phone;
+        $people->email          = $request->email;
+        $people->address        = $request->address;
+        $people->birthday       = $request->birthday;
+        $people->category_id    = $request->category;
+        $people->save();
+
+        return redirect('home');
     }
 
     /**
@@ -55,7 +66,9 @@ class PeopleController extends Controller
      */
     public function show($id)
     {
-        //
+        $people = People::find($id);
+
+        return view('people.show', compact('people'));
     }
 
     /**
@@ -66,7 +79,8 @@ class PeopleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $people = People::find($id);
+        return view('people.edit', compact('people'));
     }
 
     /**
@@ -78,7 +92,17 @@ class PeopleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $people                 = People::find($id);
+        $people->name           = $request->name;
+        $people->description    = $request->description;
+        $people->phone          = $request->phone;
+        $people->email          = $request->email;
+        $people->address        = $request->address;
+        $people->birthday       = $request->birthday;
+        $people->category_id    = $request->category;
+        $people->save();
+
+        return redirect('home');
     }
 
     /**
@@ -89,6 +113,9 @@ class PeopleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $people = People::find($id);
+        $people->delete();
+
+        return redirect('home');
     }
 }

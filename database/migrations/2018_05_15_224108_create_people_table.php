@@ -16,11 +16,11 @@ class CreatePeopleTable extends Migration
         Schema::create('people', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('description');
-            $table->string('birthday');
-            $table->string('phone');
-            $table->string('email');
-            $table->string('address');
+            $table->string('description')->nullable();
+            $table->string('birthday')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('email')->nullable();
+            $table->string('address')->nullable();
             $table->string('category_id');
             $table->timestamps();
         });

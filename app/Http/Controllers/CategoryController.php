@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Category;
+use Auth;
 
 class CategoryController extends Controller
 {
@@ -23,7 +25,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        return view('category.index');
     }
 
     /**
@@ -33,7 +35,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('category.create');
     }
 
     /**
@@ -44,7 +46,14 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $category               = new Category();
+        $category->title        = $request->title;
+        $category->description  = $request->description;
+        $category->user_id      = Auth::id();
+        $category->save();
+
+        return view('category.index');
+
     }
 
     /**
@@ -66,7 +75,9 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Category::find($id);
+
+        return view('category.edit', compact('category'));
     }
 
     /**
@@ -78,7 +89,12 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $category               = Category::find($id);
+        $category->title        = $request->title;
+        $category->description  = $request->description;
+        $category->save();
+
+        return view('category.index');
     }
 
     /**
@@ -89,6 +105,9 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Category::find($id);
+        $category->delate();
+
+        return view("category.index");
     }
 }
