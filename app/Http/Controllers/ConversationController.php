@@ -46,13 +46,13 @@ class ConversationController extends Controller
      */
     public function store(Request $request)
     {
-        $conversation               = new Conversation();
-        $conversation->title        = $request->title;
-        $conversation->content      = $request->description;
-        $conversation->people_id    = $request->people;
+        $conversation                   = new Conversation();
+        $conversation->title            = $request->title;
+        $conversation->content          = $request->description;
+        $conversation->people_id        = $request->people;
 
         if ($request->date != "")
-            $conversation->created_at = $request->date;
+            $conversation->created_at   = $request->date;
         
         $conversation->save();
 
