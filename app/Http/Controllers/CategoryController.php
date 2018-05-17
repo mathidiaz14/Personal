@@ -64,7 +64,10 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        $category = Category::find($id);
+        $peoples  = $category->peoples()->paginate(10);
+
+        return view('category.show', compact('category', 'peoples'));
     }
 
     /**

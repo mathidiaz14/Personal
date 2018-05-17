@@ -28,7 +28,6 @@
                     <table class="table table-striped text-center">
                         <thead>
                             <tr>
-                              <th scope="col" class="text-center">#</th>
                               <th scope="col" class="text-center">Titulo</th>
                               <th scope="col" class="text-center">Descripción</th>
                               <th></th>
@@ -38,8 +37,11 @@
                         <tbody>
                             @foreach(Auth::user()->categories as $category)
                                 <tr>
-                                    <td scope="row">{{$category->id}}</td>
-                                    <td>{{$category->title}}</td>
+                                    <td>
+                                        <a href="{{url('category', $category->id)}}">
+                                            {{$category->title}}
+                                        </a>
+                                    </td>
                                     <td>{{$category->description}}</td>
                                     <td>
                                         <a href="{{route('category.edit', $category->id)}}" class="btn btn-primary btn-fill">
