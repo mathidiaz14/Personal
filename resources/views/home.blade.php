@@ -100,8 +100,6 @@
 @endsection
 
 @section('scripts')
-    <script src="{{asset('js/jquery-latest.js')}}" type="text/javascript"></script>
-    <script src="{{asset('js/jquery.tablesorter.js')}}" type="text/javascript"></script>
     <script>
        $(document).ready(function(){ 
             $("#table").tablesorter(); 
