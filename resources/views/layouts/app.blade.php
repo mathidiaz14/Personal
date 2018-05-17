@@ -64,10 +64,14 @@
                     </a>
                 </li>
 				<li class="active-pro">
-                    <a href="">
+                    <a onclick="event.preventDefault();
+                                 document.getElementById('logout-form').submit();">
                         <i class="pe-7s-power"></i>
                         <p>Cerrar Sesión</p>
                     </a>
+                    <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                        {{ csrf_field() }}
+                    </form>
                 </li>
             </ul>
     	</div>
@@ -88,11 +92,12 @@
                     <ul class="nav navbar-nav navbar-left">
                         <li>
                             <a style="margin:0;">
-                            <form action="" class="form-inline">
+                            <form action="{{url('search')}}" method="POST" class="form-inline">
+                                @csrf
                                 <div class="form-group">
                                     <i class="fa fa-search"></i>
                                     <p class="hidden-lg hidden-md">Buscar</p>
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" name="search">
                                 </div>
                             </form>
                             </a>

@@ -19,3 +19,4 @@ Route::resource('category'				, 'CategoryController');
 Route::resource('note'					, 'NoteController');
 Route::resource('conversation'			, 'ConversationController');
 Route::get('conversation/search/{id}'	, 'ConversationController@search');
+Route::post('search'					, 'HomeController@search');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\People;
+use App\Conversation;
 
 class ConversationController extends Controller
 {
@@ -45,7 +46,17 @@ class ConversationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $conversation               = new Conversation();
+        $conversation->title        = $request->title;
+        $conversation->content      = $request->description;
+        $conversation->people_id    = $request->people;
+
+        if ($request->date != "")
+            $conversation->created_at = $request->date;
+        
+        $conversation->save();
+
+        return back();
     }
 
     /**
@@ -56,7 +67,9 @@ class ConversationController extends Controller
      */
     public function show($id)
     {
-        
+        $conversation = Conversation::find($id);
+
+        return view('conversation.show', compact('conversation'));
     }
 
     /**
@@ -67,7 +80,9 @@ class ConversationController extends Controller
      */
     public function edit($id)
     {
-        //
+        $conversation = Conversation::find($id);
+        
+        return view('conversation.edit', compact('conversation'));
     }
 
     /**
@@ -79,7 +94,14 @@ class ConversationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $conversation               = Conversation::find($id);
+        $conversation->title        = $request->title;
+        $conversation->content      = $request->description;
+        $conversation->created_at   = $request->date;
+        
+        $conversation->save();
+
+        return back();
     }
 
     /**
@@ -90,13 +112,17 @@ class ConversationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $conversation = Conversation::find($id);
+        $conversation->delete();
+
+        return back();
     }
 
     public function search($id)
     {
-        $people = People::find($id);
-        $conversations = $people->conversations()->paginate(10);
+        $people         = People::find($id);
+        $conversations  = $people->conversations()->paginate(10);
+        
 
         return view('conversation.index', compact('people', 'conversations'));
     }

@@ -18,6 +18,6 @@ class People extends Model
 
     public function conversations()
     {
-    	return $this->belongsTo('App\Conversation');
+    	return $this->hasMany('App\Conversation')->orderBy('created_at', 'desc');
     }
 }

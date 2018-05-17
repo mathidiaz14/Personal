@@ -6,14 +6,68 @@
         <div class="card">
             <div class="header">
                 <div class="col-xs-6">
-                    <h4 class="title">Conversaciones</h4>
-                    <p class="category">guardada</p>
+                    <h4 class="title">
+                        <a href="{{url('people', $people->id)}}">
+                            <i class="fa fa-arrow-left"></i>
+                        </a>
+                        Conversaciones
+                    </h4>
                 </div>
                 <div class="col-xs-6 text-right">
-                    <a href="{{url('conversation/create')}}" class="btn btn-success btn-fill">
-                        <i class="pe-7s-plus"></i>
+                    <button type="button" class="btn btn-success btn-fill" data-toggle="modal" data-target="#conversationModal">
+                        <i class="fa fa-plus"></i>
                         Agregar conversación
-                    </a>
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal" id="conversationModal" tabindex="-1" role="dialog" aria-labelledby="conversationModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content text-left">
+                                <div class="modal-header">
+                                    <div class="col-xs-6">
+                                        <h5 class="modal-title" id="conversationModalLabel">Agregar Conversación</h5>
+                                    </div>
+                                    <div class="col-xs-6 text-right">
+                                        <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <form action="{{url('conversation')}}" method="POST" class="form-horizontal">
+                                            @csrf
+                                            <input type="hidden" name="people" value="{{$people->id}}">
+                                            <div class="col-xs-12 col-md-10 col-md-offset-1">
+                                                <div class="form-group">
+                                                    <label for="">Titulo</label>
+                                                    <input type="text" class="form-control" name="title">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-md-10 col-md-offset-1">
+                                                <div class="form-group">
+                                                    <label for="">Contenido</label>
+                                                    <textarea name="description" class="form-control" rows="10" cols="30" ></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-md-10 col-md-offset-1">
+                                                <div class="form-group">
+                                                    <label for="">Fecha</label>
+                                                    <input type="date" class="form-control" name="date">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-md-10 col-md-offset-1">
+                                                <button class="btn btn-info btn-block">Enviar</button>
+                                            </div>
+                                        </form>
+                                    </div>    
+                                </div>
+                                <div class="modal-footer">
+                                
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="content">
@@ -70,4 +124,13 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $('#conversationModal').on('shown.bs.modal', function () {
+            $('.modal-backdrop').remove();
+            $('#myInput').trigger('focus');
+        });
+    </script>
 @endsection
