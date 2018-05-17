@@ -9,6 +9,29 @@
         padding: .5em;
         margin-bottom:1em;
     }
+
+    .timelapse
+    {
+        border-left:solid 3px purple;
+    }
+
+    .timelapse:last-child
+    {
+        border-left-width: medium;
+    }
+
+    .timelapse .circle
+    {
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 9px 0 9px 9px;
+        border-color: transparent transparent transparent purple;
+        position: absolute;
+        left: 0px;
+        top: 15px;
+    }
+
 </style>
 @endsection
 
@@ -45,57 +68,78 @@
                         </div>
                     </div>
                 </div>
-                <hr>
+            </div>
+        </div>
+        <div class="card">
+            <div class="header">
+                <h5 class="title">
+                    Agregar nota
+                </h5>
+            </div>
+            <div class="content">
                 <div class="row">
-                    <div class="col-xs-12">
-                        <h3>Notas</h3>
-                    </div>
-                </div>
-                <div class="row">
-                    <form action="{{route('note.create')}}" method="POST" class="form-inline">
+                    <form action="{{url('note')}}" method="POST" class="form-horizontal">
                         @csrf
-                        <div class="col-xs-12 col-md-4">
+                        <input type="hidden" name="people" value="{{$people->id}}">
+                        <div class="col-xs-12 col-md-6 col-md-offset-3">
                             <div class="form-group">
                                 <label for="">Titulo</label>
                                 <input type="text" class="form-control" name="title">
                             </div>
                         </div>
-                        <div class="col-xs-12 col-md-4">
+                        <div class="col-xs-12 col-md-6 col-md-offset-3">
                             <div class="form-group">
                                 <label for="">Contenido</label>
-                                <input type="text" class="form-control" name="description">
+                                <textarea name="description" class="form-control" cols="30" ></textarea>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-md-4">
-                            <button class="btn btn-info">Enviar</button>
+                        <div class="col-xs-12 col-md-6 col-md-offset-3">
+                            <div class="form-group">
+                                <label for="">Fecha</label>
+                                <input type="date" class="form-control" name="date">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6 col-md-offset-3">
+                            <button class="btn btn-info btn-block">Enviar</button>
                         </div>
                     </form>
                 </div>
-                <div class="row">
-                    <div class="col-xs-12">
-                        @foreach($people->notes as $note)
-                            <div class="col-xs-12 note">
-                                <div class="col-xs-6">
-                                    <h4>{{$note->title}}</h4>
-                                </div>
-                                <div class="col-xs-6 text-right">
-                                    <p>{{date('d/m/Y', strtotime($note->created_at))}}</p>
-                                </div>
-                                <div class="col-xs-12">
-                                    <p>
-                                        {{$note->description}}
-                                    </p>
-                                </div>
-                                <div class="col-xs-12 text-right">
-                                    <a href="" class="btn btn-danger btn-fill">
-                                        <i class="pe-7s-trash"></i>
+            </div>
+        </div>
+        <div class="row">
+            @foreach($people->notes as $note)
+                <div class="col-xs-12 timelapse">
+                    <div class="circle"></div>
+                    <div class="card">
+                        <div class="header">
+                            <div class="col-xs-6">
+                                <small style="color:purple;">
+                                    {{date('d/m/Y', strtotime($note->created_at))}}
+                                </small>
+                            </div>
+                            <div class="col-xs-6 text-right">
+                                <form action="{{ url('note', $note->id)}}" method="POST">
+                                    @csrf
+                                    <input type='hidden' name='_method' value='DELETE'>
+                                    <a>
+                                        <i class="fa fa-close"></i>
                                     </a>
+                                </form>
+                            </div>
+                            <div class="col-xs-12">
+                                <h4 class="title">{{$note->title}}</h4>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <p>{{$note->description}}</p>
                                 </div>
                             </div>
-                        @endforeach
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </div>

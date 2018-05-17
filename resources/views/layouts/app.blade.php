@@ -46,7 +46,7 @@
     	<div class="sidebar-wrapper">
             <div class="logo">
                 <a href="{{url('home')}}" class="simple-text">
-                    Seguimiento
+                    MathiasDiaz.uy
                 </a>
             </div>
 

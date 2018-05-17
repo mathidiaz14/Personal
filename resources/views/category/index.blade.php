@@ -10,7 +10,7 @@
                     <p class="category">Categorias registradas</p>
                 </div>
                 <div class="col-xs-6 text-right">
-                    <a href="{{url('category    /create')}}" class="btn btn-success btn-fill">
+                    <a href="{{url('category/create')}}" class="btn btn-success btn-fill">
                         <i class="pe-7s-plus"></i>
                         Agregar Categoria
                     </a>
@@ -41,7 +41,7 @@
                                         </a>
                                     </td>
                                     <td>
-                                        <form id="delete-form-{{$category->id}}" action="{{ url('category', $category->id)}}" method="POST">
+                                        <form action="{{ url('category', $category->id)}}" method="POST">
                                             @csrf
                                             <input type='hidden' name='_method' value='DELETE'>
                                             <button class="btn btn-danger btn-fill">
@@ -54,12 +54,6 @@
                             @endforeach
                         </tbody>
                     </table>
-                </div>
-                <div class="footer">
-                    <hr>
-                    <div class="stats">
-                        
-                    </div>
                 </div>
             </div>
         </div>

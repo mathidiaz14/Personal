@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Note;
 
 class NoteController extends Controller
 {
@@ -44,7 +45,17 @@ class NoteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $note = new Note();
+        $note->title = $request->title;
+        $note->description = $request->description;
+        $note->people_id = $request->people;
+
+        if ($request->date != "")
+            $note->created_at = $request->date;
+        
+        $note->save();
+
+        return redirect('people/'.$request->people);
     }
 
     /**
