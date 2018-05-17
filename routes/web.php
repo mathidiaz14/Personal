@@ -12,8 +12,10 @@
 */
 Auth::routes();
 
-Route::get('/home'					, 'HomeController@index')->name('home');
-Route::get('/'						, 'HomeController@index');
-Route::resource('people'			, 'PeopleController');
-Route::resource('category'			, 'CategoryController');
-Route::resource('note'				, 'NoteController');
+Route::get('/home'						, 'HomeController@index')->name('home');
+Route::get('/'							, 'HomeController@index');
+Route::resource('people'				, 'PeopleController');
+Route::resource('category'				, 'CategoryController');
+Route::resource('note'					, 'NoteController');
+Route::resource('conversation'			, 'ConversationController');
+Route::get('conversation/search/{id}'	, 'ConversationController@search');

@@ -2,6 +2,11 @@
 
 @section('css')
 <style>
+    a
+    {
+        cursor:pointer;
+    }
+
     .note
     {
         background: #e5e5e6;
@@ -13,6 +18,7 @@
     .timelapse
     {
         border-left:solid 3px purple;
+        position:relative;
     }
 
     .timelapse:last-child
@@ -32,6 +38,13 @@
         top: 15px;
     }
 
+    .date
+    {
+        position:absolute;
+        left:-95px;
+        top: 15px;
+    }
+
 </style>
 @endsection
 
@@ -44,95 +57,117 @@
             <li class="breadcrumb-item active" aria-current="page">{{$people->name}}</li>
           </ol>
         </nav>
+        <div class="row">
+            <div class="card">
+                <div class="header">
+                    <div class="col-xs-6">
+                        <h4 class="title">{{$people->name}}</h4>
+                        <p class="category">{{$people->description}}</p>
+                    </div>
+                    <div class="col-xs-6 text-right">
+                        <a href="{{url('conversation/search', $people->id)}}" class="btn btn-success btn-fill">
+                           <i class="fa fa-comment"></i>
+                            Conversaciónes
+                        </a>
+                        <button type="button" class="btn btn-primary btn-fill" data-toggle="modal" data-target="#exampleModal">
+                            <i class="fa fa-plus"></i>
+                            Agregar nota
+                        </button>
 
-        <div class="card">
-            <div class="header">
-                <div class="col-xs-6">
-                    <h4 class="title">{{$people->name}}</h4>
-                    <p class="category">{{$people->description}}</p>
+                        <!-- Modal -->
+                        <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content text-left">
+                                    <div class="modal-header">
+                                        <div class="col-xs-6">
+                                            <h5 class="modal-title" id="exampleModalLabel">Agregar nota</h5>
+                                        </div>
+                                        <div class="col-xs-6 text-right">
+                                            <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <form action="{{url('note')}}" method="POST" class="form-horizontal">
+                                                @csrf
+                                                <input type="hidden" name="people" value="{{$people->id}}">
+                                                <div class="col-xs-12 col-md-10 col-md-offset-1">
+                                                    <div class="form-group">
+                                                        <label for="">Titulo</label>
+                                                        <input type="text" class="form-control" name="title">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-md-10 col-md-offset-1">
+                                                    <div class="form-group">
+                                                        <label for="">Contenido</label>
+                                                        <textarea name="description" class="form-control" rows="5" cols="30" ></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-md-10 col-md-offset-1">
+                                                    <div class="form-group">
+                                                        <label for="">Fecha</label>
+                                                        <input type="date" class="form-control" name="date">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-md-10 col-md-offset-1">
+                                                    <button class="btn btn-info btn-block">Enviar</button>
+                                                </div>
+                                            </form>
+                                        </div>    
+                                    </div>
+                                    <div class="modal-footer">
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-xs-6 text-right">
-                    
-                </div>
-            </div>
-            <div class="content">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <hr>
+                <div class="content">
+                    <div class="row">
                         <div class="col-xs-12">
-                            <p>Cumpleaños: <b>{{date('d/m/Y', strtotime($people->birthday))}}</b></p>
-                            <p>Telefono: <b>{{$people->phone}}</b></p>
-                            <p>Email: <b><a href="mailto:{{$people->email}}">{{$people->email}}</a></b></p>
-                            <p>Dirección: <b>{{$people->address}}</b></p>
-                            <p>Categoria: <b>{{$people->category->title}}</b></p>
+                            <hr>
+                            <div class="col-xs-12">
+                                <p>Cumpleaños: <b>{{date('d/m/Y', strtotime($people->birthday))}}</b></p>
+                                <p>Telefono: <b>{{$people->phone}}</b></p>
+                                <p>Email: <b><a href="mailto:{{$people->email}}">{{$people->email}}</a></b></p>
+                                <p>Dirección: <b>{{$people->address}}</b></p>
+                                <p>Categoria: <b>{{$people->category->title}}</b></p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="card">
-            <div class="header">
-                <h5 class="title">
-                    Agregar nota
-                </h5>
-            </div>
-            <div class="content">
-                <div class="row">
-                    <form action="{{url('note')}}" method="POST" class="form-horizontal">
-                        @csrf
-                        <input type="hidden" name="people" value="{{$people->id}}">
-                        <div class="col-xs-12 col-md-6 col-md-offset-3">
-                            <div class="form-group">
-                                <label for="">Titulo</label>
-                                <input type="text" class="form-control" name="title">
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-md-6 col-md-offset-3">
-                            <div class="form-group">
-                                <label for="">Contenido</label>
-                                <textarea name="description" class="form-control" cols="30" ></textarea>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-md-6 col-md-offset-3">
-                            <div class="form-group">
-                                <label for="">Fecha</label>
-                                <input type="date" class="form-control" name="date">
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-md-6 col-md-offset-3">
-                            <button class="btn btn-info btn-block">Enviar</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
         <div class="row">
-            @foreach($people->notes as $note)
-                <div class="col-xs-12 timelapse">
+            @foreach($notes as $note)
+                <div class="col-xs-10 col-xs-offset-2 col-md-8 col-md-offset-2 timelapse">
                     <div class="circle"></div>
+                    <div class="date">
+                        <p style="color:purple;">
+                            {{date('d/m/Y', strtotime($note->created_at))}}
+                        </p>
+                    </div>
                     <div class="card">
                         <div class="header">
                             <div class="col-xs-6">
-                                <small style="color:purple;">
-                                    {{date('d/m/Y', strtotime($note->created_at))}}
-                                </small>
+                                <h4 class="title">{{$note->title}}</h4>
                             </div>
                             <div class="col-xs-6 text-right">
-                                <form action="{{ url('note', $note->id)}}" method="POST">
+                                <form id="delete-form-{{$note->id}}" action="{{ url('note', $note->id)}}" method="POST">
                                     @csrf
                                     <input type='hidden' name='_method' value='DELETE'>
-                                    <a>
-                                        <i class="fa fa-close"></i>
-                                    </a>
                                 </form>
-                            </div>
-                            <div class="col-xs-12">
-                                <h4 class="title">{{$note->title}}</h4>
+                                <a onclick="event.preventDefault(); document.getElementById('delete-form-{{$note->id}}').submit();" class="text-danger">
+                                    <i class="fa fa-close"> </i>
+                                </a>
                             </div>
                         </div>
                         <div class="content">
                             <div class="row">
-                                <div class="col-xs-12">
+                                <div class="col-xs-12" style="margin-left: 15px;">
                                     <p>{{$note->description}}</p>
                                 </div>
                             </div>
@@ -140,7 +175,19 @@
                     </div>
                 </div>
             @endforeach
+            <div class="col-xs-12 text-center">
+                {{$notes->links()}}
+            </div>
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $('#exampleModal').on('shown.bs.modal', function () {
+            $('.modal-backdrop').remove();
+            $('#myInput').trigger('focus');
+        });
+    </script>
 @endsection

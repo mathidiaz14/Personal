@@ -67,8 +67,9 @@ class PeopleController extends Controller
     public function show($id)
     {
         $people = People::find($id);
+        $notes  = $people->notes()->paginate(10);
 
-        return view('people.show', compact('people'));
+        return view('people.show', compact('people', 'notes'));
     }
 
     /**

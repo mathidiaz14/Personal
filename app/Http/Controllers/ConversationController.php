@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\People;
 
 class ConversationController extends Controller
 {
@@ -55,7 +56,7 @@ class ConversationController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**
@@ -90,5 +91,13 @@ class ConversationController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function search($id)
+    {
+        $people = People::find($id);
+        $conversations = $people->conversations()->paginate(10);
+
+        return view('conversation.index', compact('people', 'conversations'));
     }
 }
