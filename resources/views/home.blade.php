@@ -34,15 +34,14 @@
             </div>
             <div class="content">
                 <div class="table table-responsive">
-                    <table id="table" class="table table-striped text-center">
+                    <table id="table" class="table table-striped ">
                         <thead>
                             <tr>
-                              <th scope="col" class="text-center"># <small><i class="fa fa-sort"></i></small></th>
-                              <th scope="col" class="text-center">Nombre <small><i class="fa fa-sort"></i></small></th>
-                              <th scope="col" class="text-center">Descripción <small><i class="fa fa-sort"></i></small></th>
-                              <th scope="col" class="text-center">Email <small><i class="fa fa-sort"></i></small></th>
-                              <th scope="col" class="text-center">Telefono <small><i class="fa fa-sort"></i></small></th>
-                              <th scope="col" class="text-center">Categoria <small><i class="fa fa-sort"></i></small></th>
+                              <th scope="col" class="">Nombre <small><i class="fa fa-sort"></i></small></th>
+                              <th scope="col" class="">Descripción <small><i class="fa fa-sort"></i></small></th>
+                              <th scope="col" class="">Email <small><i class="fa fa-sort"></i></small></th>
+                              <th scope="col" class="">Telefono <small><i class="fa fa-sort"></i></small></th>
+                              <th scope="col" class="">Categoria <small><i class="fa fa-sort"></i></small></th>
                               <th></th>
                               <th></th>
                               <th></th>
@@ -52,7 +51,6 @@
                             @foreach(Auth::user()->categories as $category)
                                 @foreach($category->peoples as $people)
                                     <tr>
-                                        <td scope="row">{{$people->id}}</td>
                                         <td>
                                             <a href="{{url('people', $people->id)}}">
                                                 {{$people->name}}

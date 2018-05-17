@@ -15,7 +15,8 @@
     <div class="col-lg-12">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+            <li class="breadcrumb-item" aria-current="page"><a href="{{url('home')}}">Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{$category->title}}</li>
           </ol>
         </nav>
         <div class="card">
@@ -34,14 +35,13 @@
             </div>
             <div class="content">
                 <div class="table table-responsive">
-                    <table id="table" class="table table-striped text-center">
+                    <table id="table" class="table table-striped ">
                         <thead>
                             <tr>
-                              <th scope="col" class="text-center"># <small><i class="fa fa-sort"></i></small></th>
-                              <th scope="col" class="text-center">Nombre <small><i class="fa fa-sort"></i></small></th>
-                              <th scope="col" class="text-center">Descripción <small><i class="fa fa-sort"></i></small></th>
-                              <th scope="col" class="text-center">Email <small><i class="fa fa-sort"></i></small></th>
-                              <th scope="col" class="text-center">Telefono <small><i class="fa fa-sort"></i></small></th>
+                              <th scope="col">Nombre <small><i class="fa fa-sort"></i></small></th>
+                              <th scope="col">Descripción <small><i class="fa fa-sort"></i></small></th>
+                              <th scope="col">Email <small><i class="fa fa-sort"></i></small></th>
+                              <th scope="col">Telefono <small><i class="fa fa-sort"></i></small></th>
                               <th></th>
                               <th></th>
                               <th></th>
@@ -50,7 +50,6 @@
                         <tbody>
                             @foreach($peoples as $people)
                                 <tr>
-                                    <td scope="row">{{$people->id}}</td>
                                     <td>
                                         <a href="{{url('people', $people->id)}}">
                                             {{$people->name}}

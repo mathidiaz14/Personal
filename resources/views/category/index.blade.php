@@ -25,11 +25,11 @@
             </div>
             <div class="content">
                 <div class="table table-responsive">
-                    <table class="table table-striped text-center">
+                    <table class="table table-striped">
                         <thead>
                             <tr>
-                              <th scope="col" class="text-center">Titulo</th>
-                              <th scope="col" class="text-center">Descripción</th>
+                              <th scope="col">Titulo</th>
+                              <th scope="col">Descripción</th>
                               <th></th>
                               <th></th>
                             </tr>
