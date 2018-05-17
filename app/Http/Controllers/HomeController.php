@@ -31,6 +31,8 @@ class HomeController extends Controller
     {
         $peoples = People::where('name', 'LIKE', '%'.$request->search.'%')
                         ->orWhere('description', 'LIKE', '%'.$request->search.'%')
+                        ->orWhere('phone', 'LIKE', '%'.$request->search.'%')
+                        ->orWhere('email', 'LIKE', '%'.$request->search.'%')
                         ->get();
         
         return view('search', compact('peoples'));

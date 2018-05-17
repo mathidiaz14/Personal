@@ -3,6 +3,12 @@
 @section('content')
 <div class="row">
     <div class="col-lg-12">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item" aria-current="page"><a href="{{url('home')}}">Dashboard</a></li>
+            <li class="breadcrumb-item" aria-current="page">Busqueda</li>
+          </ol>
+        </nav>
         <div class="card">
             <div class="header">
                 <div class="col-xs-6">
