@@ -16,6 +16,7 @@
                             <tr>
                                 <td>#</td>
                                 <td>Nombre</td>
+                                <td>Descripción</td>
                                 <td>Email</td>
                                 <td>Telefono</td>
                                 <td></td>
@@ -24,7 +25,12 @@
                         @foreach($peoples as $people)
                             <tr>
                                 <td>{{$people->id}}</td>
-                                <td>{{$people->name}}</td>
+                                <td>
+                                    <a href="{{url('people', $people->id)}}">
+                                        {{$people->name}}
+                                    </a>
+                                </td>
+                                <td>{{$people->description}}</td>
                                 <td>{{$people->email}}</td>
                                 <td>{{$people->phone}}</td>
                                 <td>

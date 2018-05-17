@@ -3,17 +3,24 @@
 @section('content')
 <div class="row">
     <div class="col-lg-12">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">Categorias</li>
+          </ol>
+        </nav>
         <div class="card">
             <div class="header">
-                <div class="col-xs-6">
-                    <h4 class="title">Categorias</h4>
-                    <p class="category">Categorias registradas</p>
-                </div>
-                <div class="col-xs-6 text-right">
-                    <a href="{{url('category/create')}}" class="btn btn-success btn-fill">
-                        <i class="pe-7s-plus"></i>
-                        Agregar Categoria
-                    </a>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <h4 class="title">Categorias</h4>
+                        <p class="category">Categorias registradas</p>
+                    </div>
+                    <div class="col-xs-6 text-right">
+                        <a href="{{url('category/create')}}" class="btn btn-success btn-fill">
+                            <i class="fa fa-plus"></i>
+                            Agregar
+                        </a>
+                    </div>
                 </div>
             </div>
             <div class="content">
@@ -36,7 +43,7 @@
                                     <td>{{$category->description}}</td>
                                     <td>
                                         <a href="{{route('category.edit', $category->id)}}" class="btn btn-primary btn-fill">
-                                            <i class="pe-7s-pen"></i>
+                                            <i class="fa fa-edit"></i>
                                             Editar
                                         </a>
                                     </td>
@@ -45,7 +52,7 @@
                                             @csrf
                                             <input type='hidden' name='_method' value='DELETE'>
                                             <button class="btn btn-danger btn-fill">
-                                                <i class="pe-7s-trash"></i>
+                                                <i class="fa fa-trash"></i>
                                                 Eliminar
                                             </button>
                                         </form>

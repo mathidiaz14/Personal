@@ -3,6 +3,11 @@
 @section('content')
 <div class="row">
     <div class="col-lg-12">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+          </ol>
+        </nav>
         <div class="card">
             <div class="header">
                 <div class="row">
@@ -12,7 +17,7 @@
                     <div class="col-xs-6 text-right">
                         <a href="{{url('people/create')}}" class="btn btn-success btn-fill">
                             <i class="fa fa-plus"></i>
-                            Agregar persona
+                            Agregar
                         </a>
                     </div>
                 </div>
@@ -38,7 +43,11 @@
                                 @foreach($category->peoples as $people)
                                     <tr>
                                         <td scope="row">{{$people->id}}</td>
-                                        <td>{{$people->name}}</td>
+                                        <td>
+                                            <a href="{{url('people', $people->id)}}">
+                                                {{$people->name}}
+                                            </a>
+                                        </td>
                                         <td>{{$people->description}}</td>
                                         <td><a href="mailto:{{$people->email}}">{{$people->email}}</a></td>
                                         <td>{{$people->phone}}</td>

@@ -29,7 +29,19 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="{{asset('assets/css/pe-icon-7-stroke.css')}}" rel="stylesheet" />
-	@yield('css')
+	<style>
+     .breadcrumb
+     {
+        background: #e8e8e8!important;
+     } 
+
+     .breadcrumb a
+     {
+        color:#17b4d4;
+     }  
+
+    </style>
+    @yield('css')
 </head>
 <body>
 
@@ -64,12 +76,11 @@
                     </a>
                 </li>
 				<li class="active-pro">
-                    <a onclick="event.preventDefault();
-                                 document.getElementById('logout-form').submit();">
+                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">
                         <i class="pe-7s-power"></i>
                         <p>Cerrar Sesión</p>
-                    </a>
-                    <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                    </a>    
+                    <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
                         {{ csrf_field() }}
                     </form>
                 </li>
