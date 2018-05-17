@@ -101,7 +101,7 @@ class ConversationController extends Controller
         
         $conversation->save();
 
-        return back();
+        return redirect('conversation/search/'.$conversation->people_id);
     }
 
     /**

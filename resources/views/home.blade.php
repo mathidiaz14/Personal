@@ -1,5 +1,15 @@
 @extends('layouts.app')
 
+@section('css')
+    <style>
+        .table th:hover
+        {
+           cursor: pointer; 
+        }
+    </style>
+@endsection
+
+
 @section('content')
 <div class="row">
     <div class="col-lg-12">
@@ -24,15 +34,15 @@
             </div>
             <div class="content">
                 <div class="table table-responsive">
-                    <table class="table table-striped text-center">
+                    <table id="table" class="table table-striped text-center">
                         <thead>
                             <tr>
-                              <th scope="col" class="text-center">#</th>
-                              <th scope="col" class="text-center">Nombre</th>
-                              <th scope="col" class="text-center">Descripción</th>
-                              <th scope="col" class="text-center">Email</th>
-                              <th scope="col" class="text-center">Telefono</th>
-                              <th scope="col" class="text-center">Categoria</th>
+                              <th scope="col" class="text-center"># <small><i class="fa fa-sort"></i></small></th>
+                              <th scope="col" class="text-center">Nombre <small><i class="fa fa-sort"></i></small></th>
+                              <th scope="col" class="text-center">Descripción <small><i class="fa fa-sort"></i></small></th>
+                              <th scope="col" class="text-center">Email <small><i class="fa fa-sort"></i></small></th>
+                              <th scope="col" class="text-center">Telefono <small><i class="fa fa-sort"></i></small></th>
+                              <th scope="col" class="text-center">Categoria <small><i class="fa fa-sort"></i></small></th>
                               <th></th>
                               <th></th>
                               <th></th>
@@ -87,4 +97,14 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+    <script src="{{asset('js/jquery-latest.js')}}" type="text/javascript"></script>
+    <script src="{{asset('js/jquery.tablesorter.js')}}" type="text/javascript"></script>
+    <script>
+       $(document).ready(function(){ 
+            $("#table").tablesorter(); 
+        }); 
+    </script>
 @endsection

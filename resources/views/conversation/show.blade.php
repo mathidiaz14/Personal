@@ -26,7 +26,7 @@
                 <div class="row">
                 	<br><br>
                 	<div class="col-xs-12">
-                		<p>{{$conversation->content}}</p>
+                		<p>{!!$conversation->content!!}</p>
                 	</div>
                 </div>
             </div>
