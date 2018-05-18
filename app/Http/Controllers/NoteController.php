@@ -77,7 +77,13 @@ class NoteController extends Controller
      */
     public function edit($id)
     {
-        //
+        $note = Note::find($id);
+
+        return [
+            "title"         => $note->title,
+            "description"   => $note->description,
+            "created_at"    => date('Y-m-d', strtotime($note->created_at))
+        ];
     }
 
     /**
@@ -89,7 +95,13 @@ class NoteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $note = Note::find($id);
+        $note->title = $request->title;
+        $note->description = $request->description;
+        $note->created_at = $request->date;
+        $note->save();
+
+        return back();
     }
 
     /**

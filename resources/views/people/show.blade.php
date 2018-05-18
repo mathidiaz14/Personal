@@ -139,10 +139,18 @@
                     <div class="col-xs-12">
                         <hr>
                         <div class="col-xs-12">
-                            <p>Cumpleaños: <b>{{date('d/m/Y', strtotime($people->birthday))}}</b></p>
-                            <p>Telefono: <b>{{$people->phone}}</b></p>
-                            <p>Email: <b><a href="mailto:{{$people->email}}">{{$people->email}}</a></b></p>
-                            <p>Dirección: <b>{{$people->address}}</b></p>
+                            @if ($people->birthday != null)
+                                <p>Cumpleaños: <b>{{date('d/m/Y', strtotime($people->birthday))}}</b></p>
+                            @endif
+                            @if ($people->phone != null)
+                                <p>Telefono: <b>{{$people->phone}}</b></p>
+                            @endif
+                            @if ($people->email != null)
+                                <p>Email: <b><a href="mailto:{{$people->email}}">{{$people->email}}</a></b></p>
+                            @endif
+                            @if ($people->address != null)
+                                <p>Dirección: <b>{{$people->address}}</b></p>
+                            @endif
                             <p>Categoria: <b>{{$people->category->title}}</b></p>
                         </div>
                     </div>
@@ -168,6 +176,11 @@
                                     @csrf
                                     <input type='hidden' name='_method' value='DELETE'>
                                 </form>
+                                
+                                <a type="button" data-toggle="modal" data-target="#editModal" class="editModal" id="{{$note->id}}">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+
                                 <a onclick="event.preventDefault(); document.getElementById('delete-form-{{$note->id}}').submit();" class="text-danger">
                                     <i class="fa fa-close"> </i>
                                 </a>
@@ -186,6 +199,59 @@
             <div class="col-xs-12 text-center">
                 {{$notes->links()}}
             </div>
+            
+            <!-- Modal -->
+            <div class="modal" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content text-left">
+                        <div class="modal-header">
+                            <div class="col-xs-6">
+                                <h5 class="modal-title" id="editModalLabel">Agregar nota</h5>
+                            </div>
+                            <div class="col-xs-6 text-right">
+                                <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <form action="" method="POST" class="form-horizontal" id="form-edit">
+                                        @csrf
+                                        <input type="hidden" name="_method" value="PATCH">
+                                        <div class="col-xs-12 col-md-10 col-md-offset-1">
+                                            <div class="form-group">
+                                                <label for="">Titulo</label>
+                                                <input type="text" class="form-control" name="title" id="title-edit">
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-md-10 col-md-offset-1">
+                                            <div class="form-group">
+                                                <label for="">Contenido</label>
+                                                <textarea name="description" class="form-control" rows="5" cols="30" id="description-edit"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-md-10 col-md-offset-1">
+                                            <div class="form-group">
+                                                <label for="">Fecha</label>
+                                                <input type="date" class="form-control" name="date" id="date-edit">
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-md-10 col-md-offset-1">
+                                            <button class="btn btn-info btn-block">Enviar</button>
+                                        </div>
+                                    </form>  
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
@@ -196,6 +262,22 @@
         $('#exampleModal').on('shown.bs.modal', function () {
             $('.modal-backdrop').remove();
             $('#myInput').trigger('focus');
+        });
+
+        $('#editModal').on('shown.bs.modal', function () {
+            $('.modal-backdrop').remove();
+            $('#myInput').trigger('focus');
+        });
+
+        $('.editModal').click(function(){
+            var id = $(this).attr('id');
+
+            $.get( "/note/"+id+"/edit", function( data ) {
+                $('#form-edit').attr('action', "{{url('note')}}/"+id);
+                $('#title-edit').val(data.title);
+                $('#description-edit').append(data.description);
+                $('#date-edit').val(data.created_at);
+            });
         });
     </script>
 @endsection

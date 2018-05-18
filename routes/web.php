@@ -12,7 +12,7 @@
 */
 Auth::routes();
 
-Route::get('/home'						, 'HomeController@index')->name('home');
+Route::get('/home'						, 'HomeController@index');
 Route::get('/'							, 'HomeController@index');
 Route::resource('people'				, 'PeopleController');
 Route::resource('category'				, 'CategoryController');
