@@ -272,7 +272,8 @@
         $('.editModal').click(function(){
             var id = $(this).attr('id');
 
-            $.get( "/note/"+id+"/edit", function( data ) {
+            $.get( "/personal/note/"+id+"/edit", function( data ) 
+            {
                 $('#form-edit').attr('action', "{{url('note')}}/"+id);
                 $('#title-edit').val(data.title);
                 $('#description-edit').append(data.description);
